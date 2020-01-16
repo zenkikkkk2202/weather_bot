@@ -4,6 +4,8 @@ class WeatherController < ApplicationController
   # callbackアクションのCSRFトークン認証を無効
   protect_from_forgery :except => [:callback]
 
+  open_weather = "http://api.openweathermap.org/data/2.5/weather?q=Tokyo,jp&units=metric&lang=ja&APPID=2a8d665689d5a8d78c32f0ab119e6948"
+
   def client
     @client ||= Line::Bot::Client.new { |config|
       config.channel_secret = ENV["LINE_CHANNEL_SECRET"]
@@ -22,6 +24,9 @@ class WeatherController < ApplicationController
     events = client.parse_events_from(body)
 
     events.each { |event|
+      if message == "東京"
+        return　"Tokyo"
+      end
       case event
       when Line::Bot::Event::Message
         case event.type
