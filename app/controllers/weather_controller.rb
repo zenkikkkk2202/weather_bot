@@ -25,14 +25,19 @@ class WeatherController < ApplicationController
 
     events.each { |event|
 
-      
+      if event.message['text'].include?("三田市")
+        response = "兵庫県"
+      else
+        response = "登録されていません"
+      end
+
       case event
       when Line::Bot::Event::Message
         case event.type
         when Line::Bot::Event::MessageType::Text
           message = {
             type: 'text',
-            text: event.message['text']
+            text: response
           }
           client.reply_message(event['replyToken'], message)
         end
