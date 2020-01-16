@@ -25,7 +25,7 @@ class WeatherController < ApplicationController
     open_weather = "http://api.openweathermap.org/data/2.5/weather?q=Tokyo,jp&units=metric&lang=ja&APPID=2a8d665689d5a8d78c32f0ab119e6948"
     events.each { |event|
 
-      if event.message['text'].include?("三田市")
+      if event.message['text']
         response = open_weather = "http://api.openweathermap.org/data/2.5/weather?q=#{event.message['text']},jp&units=metric&lang=ja&APPID=2a8d665689d5a8d78c32f0ab119e6948"
       else
         response = "登録されていません"
