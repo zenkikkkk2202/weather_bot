@@ -13,7 +13,47 @@ class WeatherController < ApplicationController
     }
   end
 
+  # def callback
+  #   body = request.body.read
+
+  #   signature = request.env['HTTP_X_LINE_SIGNATURE']
+  #   unless client.validate_signature(body, signature)
+  #     head :bad_request
+  #   end
+
+  #   events = client.parse_events_from(body)
+
+  #   events.each { |event|
+
+  #     if event.message['text'] == ("三田市")
+  #       response = "兵庫県"
+  #     elsif event.message["text"].include?("あう")
+  #       response = "あうあう"
+  #     elsif event.message['text'].include?("マウマウ")
+  #       response = "マウマウまう"
+  #     else
+  #       response = "登録されていません"
+  #     end
+
+  #     case event
+  #     when Line::Bot::Event::Message
+  #       case event.type
+  #       when Line::Bot::Event::MessageType::Text
+  #         message = {
+  #           type: 'text',
+  #           text: event.message['text']
+  #         }
+  #         client.reply_message(event['replyToken'], message)
+  #       end
+  #     end
+  #   }
+
+  #   head :ok
+  # end
   def callback
+
+    # Postモデルの中身をランダムで@postに格納する
+    @post=Post.offset( rand(Post.count) ).first
     body = request.body.read
 
     signature = request.env['HTTP_X_LINE_SIGNATURE']
@@ -25,15 +65,15 @@ class WeatherController < ApplicationController
 
     events.each { |event|
 
-      if event.message['text'] == ("三田市")
+      # event.message['text']でLINEで送られてきた文書を取得
+      if event.message['text'].include?("三田市")
         response = "兵庫県"
-      elsif event.message["text"].include?("あう")
-        response = "あうあう"
-      elsif event.message['text'].include?("マウマウ")
-        response = "マウマウまう"
+      elsif event.message["text"].include?("兵庫県")
+        response = "三田市"
       else
         response = "登録されていません"
       end
+      #if文でresponseに送るメッセージを格納
 
       case event
       when Line::Bot::Event::Message
@@ -41,7 +81,7 @@ class WeatherController < ApplicationController
         when Line::Bot::Event::MessageType::Text
           message = {
             type: 'text',
-            text: event.message['text']
+            text: response
           }
           client.reply_message(event['replyToken'], message)
         end
