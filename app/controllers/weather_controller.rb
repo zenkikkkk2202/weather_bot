@@ -4,8 +4,6 @@ class WeatherController < ApplicationController
   # callbackアクションのCSRFトークン認証を無効
   protect_from_forgery :except => [:callback]
 
-  open_weather = "http://api.openweathermap.org/data/2.5/weather?q=Tokyo,jp&units=metric&lang=ja&APPID=2a8d665689d5a8d78c32f0ab119e6948"
-
   def client
     @client ||= Line::Bot::Client.new { |config|
       config.channel_secret = ENV["LINE_CHANNEL_SECRET"]
@@ -13,43 +11,6 @@ class WeatherController < ApplicationController
     }
   end
 
-  # def callback
-  #   body = request.body.read
-
-  #   signature = request.env['HTTP_X_LINE_SIGNATURE']
-  #   unless client.validate_signature(body, signature)
-  #     head :bad_request
-  #   end
-
-  #   events = client.parse_events_from(body)
-
-  #   events.each { |event|
-
-  #     if event.message['text'] == ("三田市")
-  #       response = "兵庫県"
-  #     elsif event.message["text"].include?("あう")
-  #       response = "あうあう"
-  #     elsif event.message['text'].include?("マウマウ")
-  #       response = "マウマウまう"
-  #     else
-  #       response = "登録されていません"
-  #     end
-
-  #     case event
-  #     when Line::Bot::Event::Message
-  #       case event.type
-  #       when Line::Bot::Event::MessageType::Text
-  #         message = {
-  #           type: 'text',
-  #           text: event.message['text']
-  #         }
-  #         client.reply_message(event['replyToken'], message)
-  #       end
-  #     end
-  #   }
-
-  #   head :ok
-  # end
   def callback
 
     # Postモデルの中身をランダムで@postに格納する
@@ -68,10 +29,14 @@ class WeatherController < ApplicationController
       # event.message['text']でLINEで送られてきた文書を取得
       if event.message['text'].include?("三田市")
         response = "兵庫県"
-      elsif event.message["text"].include?("兵庫県")
-        response = "三田市"
+      elsif event.message["text"].include?("あああああ")
+        response = "あああああああああああああああああ"
+      elsif event.message['text'].include?("おはよう")
+        response = "おはよう。なんで今まで連絡くれなかったの？"
+      elsif event.message['text'].include?("みーくん")
+        response = "みーくん！？" * 50
       else
-        response = "登録されていません"
+        response = @post.name
       end
       #if文でresponseに送るメッセージを格納
 
@@ -90,4 +55,5 @@ class WeatherController < ApplicationController
 
     head :ok
   end
+end
 end
