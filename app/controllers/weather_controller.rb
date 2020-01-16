@@ -24,9 +24,17 @@ class WeatherController < ApplicationController
     events = client.parse_events_from(body)
 
     events.each { |event|
-      if message == "東京"
-        return　"Tokyo"
+
+      if event.message['text'].include?("三田市")
+        response = "兵庫県"
+      elsif event.message["text"].include?("あう")
+        response = "あうあう"
+      elsif event.message['text'].include?("マウマウ")
+        response = "マウマウまう"
+      else
+        response = "登録されていません"
       end
+
       case event
       when Line::Bot::Event::Message
         case event.type
