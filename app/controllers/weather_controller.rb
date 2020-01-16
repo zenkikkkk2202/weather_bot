@@ -25,7 +25,7 @@ class WeatherController < ApplicationController
 
     events.each { |event|
 
-      if event.message['text'].include?("三田市")
+      if event.message['text'] == ("三田市")
         response = "兵庫県"
       elsif event.message["text"].include?("あう")
         response = "あうあう"
