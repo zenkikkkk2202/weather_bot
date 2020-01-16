@@ -56,4 +56,4 @@ class WeatherController < ApplicationController
     head :ok
   end
 end
-end
+
