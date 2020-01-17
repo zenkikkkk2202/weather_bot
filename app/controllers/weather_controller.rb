@@ -22,11 +22,10 @@ class WeatherController < ApplicationController
     end
 
     events = client.parse_events_from(body)
-    open_weather = "http://api.openweathermap.org/data/2.5/weather?q=Tokyo,jp&units=metric&lang=ja&APPID=2a8d665689d5a8d78c32f0ab119e6948"
     events.each { |event|
 
       if event.message['text'].include?("天気")
-        city = event.message['text'].delete("天気")
+        city = event.message['text'].delete(" 天気")
         response = open_weather = "http://api.openweathermap.org/data/2.5/weather?q=#{city},jp&units=metric&lang=ja&APPID=2a8d665689d5a8d78c32f0ab119e6948"
       else
         response = "登録されていません"
