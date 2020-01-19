@@ -28,6 +28,10 @@ class WeatherController < ApplicationController
         city = event.message['text'].delete(" 天気")
         response = open_weather = "http://api.openweathermap.org/data/2.5/weather?q=#{city},jp&units=metric&lang=ja&APPID=2a8d665689d5a8d78c32f0ab119e6948"
       else
+        message = {
+          type: 'text',
+          text: response
+        }
         client.reply_message(event['replyToken'], message)
       end
       
