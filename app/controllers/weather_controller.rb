@@ -29,7 +29,7 @@ class WeatherController < ApplicationController
         response = open_weather = "http://api.openweathermap.org/data/2.5/weather?q=#{city},jp&units=metric&lang=ja&APPID=2a8d665689d5a8d78c32f0ab119e6948"
       else
         event.message['text']
-        same = "text"
+        same = event.message['text']
         response = "#{same}"
       end
       
