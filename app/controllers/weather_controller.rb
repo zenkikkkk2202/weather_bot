@@ -24,29 +24,28 @@ class WeatherController < ApplicationController
     events = client.parse_events_from(body)
     events.each { |event|
 
-      if event.message['text'].include?("天気")
+      if 
+        event.message['text'].include?("天気")
         city = event.message['text'].delete(" 天気")
-        response =  "http://api.openweathermap.org/data/2.5/weather?q=#{city},jp&units=metric&lang=ja&APPID=2a8d665689d5a8d78c32f0ab119e6948"
+        response = open_weather = "http://api.openweathermap.org/data/2.5/weather?q=#{city},jp&units=metric&lang=ja&APPID=2a8d665689d5a8d78c32f0ab119e6948"
       else 
-
         event.message['text']
         same = event.message['text']
         response = "#{same}"
-      end
       
       
 
-      # case event
-      # when Line::Bot::Event::Message
-      #   case event.type
-      #   when Line::Bot::Event::MessageType::Text
-      #     message = {
-      #       type: 'text',
-      #       text: response
-      #     }
-      #     client.reply_message(event['replyToken'], message)
-      #   end
-      # end
+      case event
+      when Line::Bot::Event::Message
+        case event.type
+        when Line::Bot::Event::MessageType::Text
+          message = {
+            type: 'text',
+            text: response
+          }
+          client.reply_message(event['replyToken'], message)
+        end
+      end
     }
 
     head :ok
