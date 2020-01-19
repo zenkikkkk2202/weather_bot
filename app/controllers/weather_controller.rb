@@ -30,25 +30,13 @@ class WeatherController < ApplicationController
       elsif 
         event.message['text'] == "チュートリアル"
         tutorial = "都市の名前の後ろにスペースを開けずに天気と入力してください。" 
+        response = "#{turorial}"
       else
         event.message['text']
         same = event.message['text']
         response = "#{same}"
       end
       
-      
-      
-      case event
-      when Line::Bot::Event::Message
-        case event.type
-        when Line::Bot::Event::MessageType::Text
-          message = {
-            type: 'text',
-            text: response
-          }
-          client.reply_message(event['replyToken'], message)
-        end
-      end
     }
 
     head :ok
