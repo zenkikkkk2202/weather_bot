@@ -31,7 +31,7 @@ class WeatherController < ApplicationController
       elsif 
         event.message['text'] == "チュートリアル"
         tutorial = "都市の名前の後ろにスペースを開けずに天気と入力してください。" 
-        response = "#{turorial}"
+        response = "#{tutorial}"
       else
         event.message['text']
         same = event.message['text']
