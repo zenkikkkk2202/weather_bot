@@ -80,9 +80,7 @@ class WeatherController < ApplicationController
       if event.message['text'] != nil
         place = event.message['text'] #ここでLINEで送った文章を取得
         # result = `curl -X GET http://api.gnavi.co.jp/RestSearchAPI/20150630/?keyid=161a20d6368441dd8e7d27c1aa717317'&'format=json'&'address=#{place}`#ここでぐるなびAPIを叩く
-        # result = `curl -X GET http://api.gnavi.co.jp/RestSearchAPI/v3/?keyid=161a20d6368441dd8e7d27c1aa717317'&'format=json'&'address=#{place}`#ここでぐるなびAPIを叩く
-        result = store = "https://api.gnavi.co.jp/RestSearchAPI/v3/?keyid=161a20d6368441dd8e7d27c1aa717317&address=#{store}"
-
+        result = `curl -X GET https://api.gnavi.co.jp/RestSearchAPI/v3/?keyid=161a20d6368441dd8e7d27c1aa717317&address='&'format=json'&'address=#{place}`#ここでぐるなびAPIを叩く
       else
         latitude = event.message['latitude']
         longitude = event.message['longitude']
