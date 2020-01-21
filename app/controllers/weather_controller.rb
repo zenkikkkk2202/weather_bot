@@ -36,7 +36,7 @@ class WeatherController < ApplicationController
         # ぐるなびAPIを呼び出す
         event.message['text'].include?("ぐるなび")
         area = event.message['text'].delete("ぐるなび")
-        response = `curl -X GET https://api.gnavi.co.jp/RestSearchAPI/v3/?keyid=161a20d6368441dd8e7d27c1aa717317'&'format=html'&'address=#{area}`
+        response = `curl -X GET "https://api.gnavi.co.jp/RestSearchAPI/v3/?keyid=161a20d6368441dd8e7d27c1aa717317'&'format=html'&'address=#{area}"`
       else
         # おうむ返し
         event.message['text']
@@ -54,14 +54,12 @@ class WeatherController < ApplicationController
           }
           client.reply_message(event['replyToken'], message)
         end
-      end
-      
-      
+      end 
     }
-
     head :ok
-  end 
-
+  end
+  
+end
 
   # def callback
   #   body = request.body.read
@@ -123,4 +121,4 @@ class WeatherController < ApplicationController
 
   #   head :ok
   # end
-end
+
