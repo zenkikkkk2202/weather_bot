@@ -27,7 +27,7 @@ class WeatherController < ApplicationController
       # open_weatherのAPIを呼び出す
       if event.message['text'].include?("天気")
         city = event.message['text'].delete(" 天気")
-        response = open_weather = "http://api.openweathermap.org/data/2.5/weather?q=#{city},jp&units=metric&lang=ja&APPID=2a8d665689d5a8d78c32f0ab119e6948"
+        response = open_weather = "curl -X GET http://api.openweathermap.org/data/2.5/weather?q=#{city},jp&units=metric&lang=ja&APPID=2a8d665689d5a8d78c32f0ab119e6948"
       elsif 
         event.message['text'] == "チュートリアル"
         tutorial = "都市の名前の後ろにスペースを開けずに天気と入力してください。" 
@@ -36,7 +36,7 @@ class WeatherController < ApplicationController
         # ぐるなびAPIを呼び出す
         event.message['text'].include?("ぐるなび")
         area = event.message['text'].delete("ぐるなび")
-        response = `curl -X GET https://api.gnavi.co.jp/RestSearchAPI/v3/?keyid=161a20d6368441dd8e7d27c1aa717317&address=三田市&format=html&address=#{area}`
+        response = `curl -X GET https://api.gnavi.co.jp/RestSearchAPI/v3/?keyid=161a20d6368441dd8e7d27c1aa717317&format=html&address=#{area}`
       else
         # おうむ返し
         event.message['text']
