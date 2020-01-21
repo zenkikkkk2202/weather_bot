@@ -36,7 +36,37 @@ class WeatherController < ApplicationController
         # ぐるなびAPIを呼び出す
         event.message['text'].include?("ぐるなび")
         area = event.message['text'].delete("ぐるなび")
-        response = `curl -X GET https://api.gnavi.co.jp/RestSearchAPI/v3/?keyid=161a20d6368441dd8e7d27c1aa717317'&'address=#{area}`
+        response = `curl -X GET https://api.gnavi.co.jp/RestSearchAPI/v3/?keyid=161a20d6368441dd8e7d27c1aa717317'&'format=json'&'address=#{area}`
+        hash_result = JSON.parse result #レスポンスが文字列なのでhashにパースする
+        shops = hash_result["rest"] #ここでお店情報が入った配列となる
+        shop = shops.sample #任意のものを一個選ぶ
+
+        #店の情報
+        url = shop["url_mobile"] #サイトのURLを送る
+        shop_name = shop["name"] #店の名前
+        category = shop["category"] #カテゴリー
+        open_time = shop["opentime"] #空いている時間
+        holiday = shop["holiday"] #定休日
+
+        if open_time.class != String #空いている時間と定休日の二つは空白の時にHashで返ってくるので、文字列に直そうとするとエラーになる。そのため、クラスによる場合分け。
+          open_time = ""
+        end
+        if holiday.class != String
+          holiday = ""
+       end
+
+       response = "【店名】" + shop_name + "\n" + "【カテゴリー】" + category + "\n" + "【営業時間と定休日】" + open_time + "\n" + holiday + "\n" + url
+        case event #case文　caseの値がwhenと一致する時にwhenの中の文章が実行される(switch文みたいなもの)
+       when Line::Bot::Event::Message
+         case event.type
+         when Line::Bot::Event::MessageType::Text,Line::Bot::Event::MessageType::Location
+           message = {
+             type: 'text',
+             text: response
+           }
+           client.reply_message(event['replyToken'], message)
+         end
+
       else
         # おうむ返し
         event.message['text']
