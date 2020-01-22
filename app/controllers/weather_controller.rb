@@ -48,7 +48,7 @@ class WeatherController < ApplicationController
         area = event.message['text'].delete("ぐるなび")
         # response = `curl -X GET "https://api.gnavi.co.jp/RestSearchAPI/v3/?keyid=161a20d6368441dd8e7d27c1aa717317&address=#{area}"`
         eurl = URI.encode("https://api.gnavi.co.jp/RestSearchAPI/v3/?keyid=161a20d6368441dd8e7d27c1aa717317&address=#{area}")
-        responser = `curl -X GET "#{eurl}"`
+        responser = `curl -X GET #{eurl}`
       else
         # おうむ返し
         event.message['text']
