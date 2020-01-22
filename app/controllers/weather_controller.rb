@@ -26,13 +26,18 @@ class WeatherController < ApplicationController
     events = client.parse_events_from(body)
     events.each { |event|
       # open_weatherのAPIを呼び出す
-      if event.message['text'].include?("天気")
-        city = event.message['text'].delete(" 天気")
-        response = open_weather = `curl -X GET "http://api.openweathermap.org/data/2.5/weather?q=#{city},jp&units=metric&lang=ja&APPID=2a8d665689d5a8d78c32f0ab119e6948"`
-      elsif 
+      if 
         event.message['text'] == "チュートリアル"
         tutorial = "都市の名前の後ろにスペースを開けずに天気と入力してください。" 
-        response = "#{tutorial}"
+        response = "#{tutorial}"   
+      elsif 
+        event.message['text'].include?("天気")
+        city = event.message['text'].delete(" 天気")
+        open_weather = `curl -X GET "http://api.openweathermap.org/data/2.5/weather?q=#{city},jp&units=metric&lang=ja&APPID=2a8d665689d5a8d78c32f0ab119e6948"`
+        hash_result = JSON.parse result #レスポンスが文字列なのでhashにパースする
+        weather = hash_result["rest"] 
+        description = weather["Clouds"]
+        puts description
       elsif
         # ぐるなびAPIを呼び出す
         event.message['text'].include?("ぐるなび")
