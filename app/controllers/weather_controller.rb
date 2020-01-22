@@ -42,9 +42,7 @@ class WeatherController < ApplicationController
         event.message['text'].include?("ニュース")
         # url = 'https://newsapi.org/v2/top-headlines?country=japan&apiKey=56e56303f83f4d89b8eb401e4f668c27'
         url = "https://newsapi.org/v2/top-headlines?country=jp&apiKey=56e56303f83f4d89b8eb401e4f668c27"
-        req = open(url)
-        response_body = req.read
-        response = "#{response_body}"
+        response = "#{url}"
       elsif
         # ぐるなびAPIを呼び出す
         event.message['text'].include?("ぐるなび")
