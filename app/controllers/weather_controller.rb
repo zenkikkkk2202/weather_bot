@@ -41,7 +41,7 @@ class WeatherController < ApplicationController
       elsif 
         event.message['text'] == ("ニュース")
         # url = 'https://newsapi.org/v2/top-headlines?country=japan&apiKey=56e56303f83f4d89b8eb401e4f668c27'
-        url =  `curl -s "https://newsapi.org/v2/top-headlines?country=jp&apiKey=56e56303f83f4d89b8eb401e4f668c27"`
+        url =  `curl -X GET "http://newsapi.org/v2/top-headlines?country=jp&apiKey=56e56303f83f4d89b8eb401e4f668c27"`
         response = "#{url}"
       elsif
         # ぐるなびAPIを呼び出す
