@@ -35,8 +35,8 @@ class WeatherController < ApplicationController
         city = event.message['text'].delete(" 天気")
         open_weather = `curl -X GET "http://api.openweathermap.org/data/2.5/weather?q=#{city},jp&units=metric&lang=ja&APPID=2a8d665689d5a8d78c32f0ab119e6948"`
         hash_result = JSON.parse open_weather#レスポンスが文字列なのでhashにパースする
-        description = hash_result.[:weather]
-        response = "#{hash_result}"
+        description = hash_result.[0]
+        response = "#{description}"
       elsif
         # ぐるなびAPIを呼び出す
         event.message['text'].include?("ぐるなび")
