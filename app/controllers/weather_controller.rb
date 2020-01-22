@@ -37,7 +37,7 @@ class WeatherController < ApplicationController
         hash_result = JSON.parse open_weather#レスポンスが文字列なのでhashにパースする
         weathers = hash_result["rest"]
         weather = weathers.first
-        response = "#{weather}"
+        response = "#{hash_result}"
       elsif
         # ぐるなびAPIを呼び出す
         event.message['text'].include?("ぐるなび")
