@@ -50,8 +50,13 @@ class WeatherController < ApplicationController
         # response = `curl -X GET "https://api.gnavi.co.jp/RestSearchAPI/v3/?keyid=161a20d6368441dd8e7d27c1aa717317&address=#{area}"`
         eurl = URI.encode("https://api.gnavi.co.jp/RestSearchAPI/v3/?keyid=161a20d6368441dd8e7d27c1aa717317&address=#{area}")
         uri = URI.parse("#{eurl}")
+        req = Net::HTTP::Get.new(uri.path)
         aaa = Net::HTTP.get_response(uri)
-        response = `curl -X GET "#{aaa}"`
+        res = Net::HTTP.start(url.host, url.port) {|http|
+          http.request(req)
+        }
+        # puts res.body
+        response = `curl -X GET "#{res.body}"`
       else
         # おうむ返し
         event.message['text']
