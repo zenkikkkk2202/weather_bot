@@ -2,7 +2,7 @@ class WeatherController < ApplicationController
   require 'line/bot'  # gem 'line-bot-api'
   require "json"
   require 'uri'
-
+  require "wikipedia"
   # callbackアクションのCSRFトークン認証を無効
   protect_from_forgery :except => [:callback]
 
@@ -41,7 +41,7 @@ class WeatherController < ApplicationController
       elsif 
         event.message['text'].include?("ニュース")
         # url = 'https://newsapi.org/v2/top-headlines?country=japan&apiKey=56e56303f83f4d89b8eb401e4f668c27'
-        url = 'https://newsapi.org/v2/everything?country=jp&apiKey=56e56303f83f4d89b8eb401e4f668c27'
+        url = "https://newsapi.org/v2/top-headlines?country=jp&apiKey=56e56303f83f4d89b8eb401e4f668c27"
         req = open(url)
         response_body = req.read
         response = "#{response_body}"
