@@ -38,7 +38,7 @@ class WeatherController < ApplicationController
         description = hash_result.fetch("weather")
         main = hash_result.fetch("main")
         # result = "天気 #{descriptioin.fetch("description")} 最高気温 #{main.fetch("temp_max")} 最低気温 #{main.fetch("temp_min")}"
-        response = "#{main.fetch("temp")}"
+        response = "平均気温 #{main.fetch("temp")}"
       elsif
         # ぐるなびAPIを呼び出す
         event.message['text'].include?("ぐるなび")
