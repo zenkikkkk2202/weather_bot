@@ -35,7 +35,7 @@ class WeatherController < ApplicationController
         city = event.message['text'].delete(" 天気")
         open_weather = `curl -X GET "http://api.openweathermap.org/data/2.5/weather?q=#{city},jp&units=metric&lang=ja&APPID=2a8d665689d5a8d78c32f0ab119e6948"`
         hash_result = JSON.parse open_weather#レスポンスが文字列なのでhashにパースする
-        weather = hash_result["rest"] 
+        weather = hash_result[0] 
         description = weather["Clouds"]
         puts description
       elsif
