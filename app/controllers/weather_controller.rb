@@ -38,7 +38,7 @@ class WeatherController < ApplicationController
         event.message['text'].include?("ぐるなび")
         area = event.message['text'].delete("ぐるなび")
         area.force_encoding('UTF-8')
-        response = `curl -X GET https://api.gnavi.co.jp/RestSearchAPI/v3/?keyid=161a20d6368441dd8e7d27c1aa717317'&'pref=#{area}`
+        response = `curl -X GET https://api.gnavi.co.jp/RestSearchAPI/v3/?keyid=161a20d6368441dd8e7d27c1aa717317'&'lunch=#{area}`
       else
         # おうむ返し
         event.message['text']
