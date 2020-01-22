@@ -41,13 +41,13 @@ class WeatherController < ApplicationController
       elsif 
         event.message['text'] == ("ニュース")
         # url = 'https://newsapi.org/v2/top-headlines?country=japan&apiKey=56e56303f83f4d89b8eb401e4f668c27'
-        url =  "https://newsapi.org/v2/top-headlines?country=jp&apiKey=56e56303f83f4d89b8eb401e4f668c27"
+        url =  `curl -v "https://newsapi.org/v2/top-headlines?country=jp&apiKey=56e56303f83f4d89b8eb401e4f668c27"`
         response = "#{url}"
       elsif
         # ぐるなびAPIを呼び出す
         event.message['text'].include?("ぐるなび")
         area = event.message['text'].delete("ぐるなび")
-        response = `curl -X GET "https://api.gnavi.co.jp/RestSearchAPI/v3/?keyid=161a20d6368441dd8e7d27c1aa717317&pref=#{area}"`
+        response = `curl GET "https://api.gnavi.co.jp/RestSearchAPI/v3/?keyid=161a20d6368441dd8e7d27c1aa717317&pref=#{area}"`
       else
         # おうむ返し
         event.message['text']
