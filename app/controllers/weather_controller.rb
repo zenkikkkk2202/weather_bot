@@ -1,6 +1,7 @@
 class WeatherController < ApplicationController
   require 'line/bot'  # gem 'line-bot-api'
   require "json"
+  require 'uri'
 
   # callbackアクションのCSRFトークン認証を無効
   protect_from_forgery :except => [:callback]
@@ -36,7 +37,8 @@ class WeatherController < ApplicationController
         # ぐるなびAPIを呼び出す
         event.message['text'].include?("ぐるなび")
         area = event.message['text'].delete("ぐるなび")
-        response = area = `curl -X GET https://api.gnavi.co.jp/RestSearchAPI/v3/?keyid=161a20d6368441dd8e7d27c1aa717317&address=#{area}`
+        encode(area)
+        response = area = `curl -X GET "https://api.gnavi.co.jp/RestSearchAPI/v3/?keyid=161a20d6368441dd8e7d27c1aa717317&address=#{area}"`
       else
         # おうむ返し
         event.message['text']
