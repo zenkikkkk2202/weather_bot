@@ -47,7 +47,8 @@ class WeatherController < ApplicationController
         # ぐるなびAPIを呼び出す
         event.message['text'].include?("ぐるなび")
         area = event.message['text'].delete("ぐるなび")
-        response = `curl GET https://api.gnavi.co.jp/RestSearchAPI/v3/?keyid=161a20d6368441dd8e7d27c1aa717317\\&address=#{area}`
+        # response = `curl GET https://api.gnavi.co.jp/RestSearchAPI/v3/?keyid=161a20d6368441dd8e7d27c1aa717317\\&address=#{area}`
+        response = `curl -X GET https://api.gnavi.co.jp/RestSearchAPI/v3/?keyid=161a20d6368441dd8e7d27c1aa717317\\&category_s=RSFST08008&category_s=RSFST08009\\&#{place}`
       else
         # おうむ返し
         event.message['text']
