@@ -36,7 +36,7 @@ class WeatherController < ApplicationController
         open_weather = `curl -X GET "http://api.openweathermap.org/data/2.5/weather?q=#{city},jp&units=metric&lang=ja&APPID=2a8d665689d5a8d78c32f0ab119e6948"`
         hash_result = JSON.parse open_weather#レスポンスが文字列なのでhashにパースする
         tenki = hash_result.fetch("weather")
-        main = hash_result.fetch("main")
+        # main = hash_result.fetch("main")
         # result = "天気 #{descriptioin.fetch("description")} 最高気温 #{main.fetch("temp_max")} 最低気温 #{main.fetch("temp_min")}"
         response = "天気 #{tenki.fetch("main")} \n 詳細 #{tenki.fetch("description")}" 
         # + "平均気温 #{main.fetch("temp")} \n 最高気温 #{main.fetch("temp_max")} \n 最低気温 #{main.fetch("temp_min")}"
