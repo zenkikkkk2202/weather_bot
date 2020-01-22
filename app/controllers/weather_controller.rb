@@ -38,7 +38,8 @@ class WeatherController < ApplicationController
         tenki = hash_result.fetch("weather")
         main = hash_result.fetch("main")
         # result = "天気 #{descriptioin.fetch("description")} 最高気温 #{main.fetch("temp_max")} 最低気温 #{main.fetch("temp_min")}"
-        response = "天気 #{tenki.fetch("main")} \n 詳細 #{tenki.fetch("description")} \n 平均気温 #{main.fetch("temp")} \n 最高気温 #{main.fetch("temp_max")} \n 最低気温 #{main.fetch("temp_min")}"
+        response = "天気 #{tenki.fetch("main")} \n 詳細 #{tenki.fetch("description")}" 
+        # + "平均気温 #{main.fetch("temp")} \n 最高気温 #{main.fetch("temp_max")} \n 最低気温 #{main.fetch("temp_min")}"
       elsif
         # ぐるなびAPIを呼び出す
         event.message['text'].include?("ぐるなび")
