@@ -35,8 +35,9 @@ class WeatherController < ApplicationController
         city = event.message['text'].delete(" 天気")
         open_weather = `curl -X GET "http://api.openweathermap.org/data/2.5/weather?q=#{city},jp&units=metric&lang=ja&APPID=2a8d665689d5a8d78c32f0ab119e6948"`
         hash_result = JSON.parse open_weather#レスポンスが文字列なのでhashにパースする
-        weather = hash_result[0]
-        response = "#{weather[:description]}"
+        weathers = hash_result["rest"]
+        weather = weathers.[0]
+        response = "#{weather}"
       elsif
         # ぐるなびAPIを呼び出す
         event.message['text'].include?("ぐるなび")
@@ -92,7 +93,7 @@ end
 
   #     hash_result = JSON.parse result #レスポンスが文字列なのでhashにパースする
   #     shops = hash_result["rest"] #ここでお店情報が入った配列となる
-  #     shop = shops.sample #任意のものを一個選ぶ
+      shop = shops.sample #任意のものを一個選ぶ
 
   #     #店の情報
   #     url = shop["url_mobile"] #サイトのURLを送る
