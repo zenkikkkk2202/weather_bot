@@ -3,6 +3,7 @@ class WeatherController < ApplicationController
   require "json"
   require 'uri'
   require "wikipedia"
+  require 'net/http'
   # callbackアクションのCSRFトークン認証を無効
   protect_from_forgery :except => [:callback]
 
@@ -48,7 +49,8 @@ class WeatherController < ApplicationController
         area = event.message['text'].delete("ぐるなび")
         # response = `curl -X GET "https://api.gnavi.co.jp/RestSearchAPI/v3/?keyid=161a20d6368441dd8e7d27c1aa717317&address=#{area}"`
         eurl = URI.encode("https://api.gnavi.co.jp/RestSearchAPI/v3/?keyid=161a20d6368441dd8e7d27c1aa717317&address=#{area}")
-        response = `curl -X GET #{eurl}`
+        aaa = Net::HTTP.get("https://api.gnavi.co.jp/RestSearchAPI/v3/?keyid=161a20d6368441dd8e7d27c1aa717317&address=#{area}")
+        response = `curl -X GET #{aaa}`
       else
         # おうむ返し
         event.message['text']
