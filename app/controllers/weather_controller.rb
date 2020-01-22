@@ -44,7 +44,6 @@ class WeatherController < ApplicationController
         req = open(url)
         response_body = req.read
         response = "#{response_body}"
-      end
       elsif
         # ぐるなびAPIを呼び出す
         event.message['text'].include?("ぐるなび")
