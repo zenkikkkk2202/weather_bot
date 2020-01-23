@@ -37,16 +37,15 @@ class WeatherController < ApplicationController
         wkey = ENV["WEATHER_KEY"]
         open_weather = `curl -X GET "http://api.openweathermap.org/data/2.5/weather?q=#{city},jp&units=metric&lang=ja&APPID=#{wkey}"`
         hash_result = JSON.parse open_weather
-        response = "#{hash_result}"
-        # if open_weather != nil
-          
-        #   tenki = hash_result.fetch("weather")[0]
-        #   main = hash_result.fetch("main")
-        #   # response = " 天気 #{tenki.fetch("main")} \n 詳細 #{tenki.fetch("description")} \n 平均気温 #{main.fetch("temp")} \n 最高気温 #{main.fetch("temp_max")} \n 最低気温 #{main.fetch("temp_min")}" 
-          
-        # else
-        #   response = "検索結果がありません"
-        # end
+        cod = hash_result.fetch("cod")
+        if cod == 200
+          tenki = hash_result.fetch("weather")[0]
+          main = hash_result.fetch("main")
+          response = " 天気 #{tenki.fetch("main")} \n 詳細 #{tenki.fetch("description")} \n 平均気温 #{main.fetch("temp")} \n 最高気温 #{main.fetch("temp_max")} \n 最低気温 #{main.fetch("temp_min")}" 
+          response = "#{hash_result}"
+        else
+          response = "検索結果がありません"
+        end
       elsif
         event.message['text'] == ("ニュース")
         nkey = ENV["NEWS_KEY"]
