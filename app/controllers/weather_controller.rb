@@ -50,12 +50,11 @@ class WeatherController < ApplicationController
       elsif
         event.message['text'] == ("ニュース")
         nkey = ENV["NEWS_KEY"]
-        ope = "http://newsapi.org/v2/top-headlines?country=jp&apiKey=#{nkey}"
-        # url = Net::HTTP.get_print URI.parse("http://newsapi.org/v2/top-headlines?country=jp&apiKey=#{nkey}")
-        # url =  `curl -X GET "http://newsapi.org/v2/top-headlines?country=jp&apiKey=56e56303f83f4d89b8eb401e4f668c27"`  
-        ddd = ope.fetch("status")
-        aaa =
-        response = "#{ddd}"
+        news = "http://newsapi.org/v2/top-headlines?country=jp&apiKey=#{nkey}"
+        result = `curl -s -X GET "#{news}"`
+        nresult = JSON.parse result
+        info = nresult()
+        response = "タイトル #{nresult}"
         # `curl -X GET "http://newsapi.org/v2/top-headlines?country=jp&apiKey=#{nkey}"`
       elsif
         # ぐるなびAPIを呼び出す
