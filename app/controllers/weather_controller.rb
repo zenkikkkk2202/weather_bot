@@ -69,7 +69,7 @@ class WeatherController < ApplicationController
         name = info.fetch("name")
         cate = info.fetch("category")
         url = info.fetch("url")
-        response = "店名 #{name} \n カテゴリー #{cate} \n URL #{url}"
+        response = "店名 #{name} \nカテゴリー #{cate} \nURL #{url}"
       else
         # おうむ返し
         event.message['text']
