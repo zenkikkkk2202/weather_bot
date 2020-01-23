@@ -62,7 +62,8 @@ class WeatherController < ApplicationController
         area = event.message['text'].delete("ぐるなび")
         gkey = ENV["GURU_KEY"]
         eurl = URI.encode("https://api.gnavi.co.jp/RestSearchAPI/v3/?keyid=161a20d6368441dd8e7d27c1aa717317&address=#{area}")
-        response = `curl -s -X GET "#{eurl}"`
+        aaa = eurl.[:hit_per_page]
+        response = `curl -s -X GET "#{aaa}"`
         # result = open("#{eurl}",&:read)
         # response = "#{result}"
       else
