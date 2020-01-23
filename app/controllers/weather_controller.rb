@@ -30,7 +30,8 @@ class WeatherController < ApplicationController
       if 
         event.message['text'] == "チュートリアル"
         tutorial = "都市の名前の後ろにスペースを開けずに天気と入力してください。" 
-        response = "#{tutorial}"   
+        response = "#{tutorial}"  
+         
       elsif 
         event.message['text'].include?("天気")
         city = event.message['text'].delete(" 天気")
@@ -45,6 +46,7 @@ class WeatherController < ApplicationController
         else
           response = "検索結果がありません"
         end
+
       elsif
         event.message['text'] == ("ニュース")
         nkey = ENV["NEWS_KEY"]
@@ -58,7 +60,7 @@ class WeatherController < ApplicationController
         area = event.message['text'].delete("ぐるなび")
         gkey = ENV["GURU_KEY"]
         eurl = URI.encode("https://api.gnavi.co.jp/RestSearchAPI/v3/?keyid=#{gkey}&address=#{area}")
-        last = Net::HTTP.get_print URI.parse("#{eurl}")
+        last = Net::HTTP.get_response URI.parse("#{eurl}")
         response = "#{last}"
       else
         # おうむ返し
