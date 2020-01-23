@@ -34,7 +34,7 @@ class WeatherController < ApplicationController
       elsif 
         event.message['text'].include?("天気")
         city = event.message['text'].delete(" 天気")
-        wkey = Rails.application.credentials[:WEATHER][:APPID]
+        wkey = Rails.application.credentials.WEATHER[:APPID]
         open_weather = `curl -X GET "http://api.openweathermap.org/data/2.5/weather?q=#{city},jp&units=metric&lang=ja&APPID=#{wkey}"`
         hash_result = JSON.parse open_weather
         tenki = hash_result.fetch("weather")[0]
