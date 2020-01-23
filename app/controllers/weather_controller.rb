@@ -40,10 +40,10 @@ class WeatherController < ApplicationController
         tenki = hash_result.fetch("weather")[0]
         main = hash_result.fetch("main")
         response = " 天気 #{tenki.fetch("main")} \n 詳細 #{tenki.fetch("description")} \n 平均気温 #{main.fetch("temp")} \n 最高気温 #{main.fetch("temp_max")} \n 最低気温 #{main.fetch("temp_min")}" 
-      elsif 
+      elsif
         event.message['text'] == ("ニュース")
-        url = Net::HTTP.get_print URI.parse("http://newsapi.org/v2/top-headlines?country=jp&apiKey=56e56303f83f4d89b8eb401e4f668c27")
-        
+        nkey = ENV["NEWS_KEY"]
+        url = Net::HTTP.get_print URI.parse("http://newsapi.org/v2/top-headlines?country=jp&apiKey=#{nkey}")
         # url =  `curl -X GET "http://newsapi.org/v2/top-headlines?country=jp&apiKey=56e56303f83f4d89b8eb401e4f668c27"`
        
         response = `curl -X GET "#{url}"`
@@ -51,8 +51,8 @@ class WeatherController < ApplicationController
         # ぐるなびAPIを呼び出す
         event.message['text'].include?("ぐるなび")
         area = event.message['text'].delete("ぐるなび")
-        # response = `curl -X GET "https://api.gnavi.co.jp/RestSearchAPI/v3/?keyid=161a20d6368441dd8e7d27c1aa717317&address=#{area}"`
-        eurl = URI.encode("https://api.gnavi.co.jp/RestSearchAPI/v3/?keyid=161a20d6368441dd8e7d27c1aa717317&address=#{area}")
+        gkey = ENV["GURU_KEY"]
+        eurl = URI.encode("https://api.gnavi.co.jp/RestSearchAPI/v3/?keyid=#{gkey}&address=#{area}")
         last = Net::HTTP.get_print URI.parse("#{eurl}")
         response = "#{last}"
       else
