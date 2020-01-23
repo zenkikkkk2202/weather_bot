@@ -34,7 +34,8 @@ class WeatherController < ApplicationController
       elsif 
         event.message['text'].include?("天気")
         city = event.message['text'].delete(" 天気")
-        open_weather = `curl -X GET "http://api.openweathermap.org/data/2.5/weather?q=#{city},jp&units=metric&lang=ja&APPID=2a8d665689d5a8d78c32f0ab119e6948"`
+        wkey = Rails.application.credentials[:WEATHER][:APPID]
+        open_weather = `curl -X GET "http://api.openweathermap.org/data/2.5/weather?q=#{city},jp&units=metric&lang=ja&APPID=#{wkey}"`
         hash_result = JSON.parse open_weather
         tenki = hash_result.fetch("weather")[0]
         main = hash_result.fetch("main")
@@ -42,9 +43,10 @@ class WeatherController < ApplicationController
       elsif 
         event.message['text'] == ("ニュース")
         url = Net::HTTP.get_print URI.parse("http://newsapi.org/v2/top-headlines?country=jp&apiKey=56e56303f83f4d89b8eb401e4f668c27")
+        
         # url =  `curl -X GET "http://newsapi.org/v2/top-headlines?country=jp&apiKey=56e56303f83f4d89b8eb401e4f668c27"`
        
-        response = `curl -o GET "#{url}"`
+        response = `curl -X GET "#{url}"`
       elsif
         # ぐるなびAPIを呼び出す
         event.message['text'].include?("ぐるなび")
