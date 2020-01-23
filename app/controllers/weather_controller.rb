@@ -55,7 +55,8 @@ class WeatherController < ApplicationController
         nresult = JSON.parse result
         info = nresult.fetch("articles")[0]
         title = info.fetch("title")
-        response = "タイトル #{title}"
+        url = info.fetch("url")
+        response = "タイトル #{title} \n URL #{url}"
         # `curl -X GET "http://newsapi.org/v2/top-headlines?country=jp&apiKey=#{nkey}"`
       elsif
         # ぐるなびAPIを呼び出す
