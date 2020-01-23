@@ -52,15 +52,15 @@ class WeatherController < ApplicationController
         nkey = ENV["NEWS_KEY"]
         url = Net::HTTP.get_print URI.parse("http://newsapi.org/v2/top-headlines?country=jp&apiKey=#{nkey}")
         # url =  `curl -X GET "http://newsapi.org/v2/top-headlines?country=jp&apiKey=56e56303f83f4d89b8eb401e4f668c27"`
-       
-        response = `curl -X GET "#{url}"`
+        aurl = url.fetch("event")
+        response = `curl -X GET "#{aurl}"`
       elsif
         # ぐるなびAPIを呼び出す
         event.message['text'].include?("ぐるなび")
         area = event.message['text'].delete("ぐるなび")
         gkey = ENV["GURU_KEY"]
         eurl = URI.encode("https://api.gnavi.co.jp/RestSearchAPI/v3/?keyid=#{gkey}&address=#{area}")
-        last = Net::HTTP.get_response URI.parse("#{eurl}")
+        last = Net::HTTP.get_print URI.parse("#{eurl}")
         response = "#{last}"
       else
         # おうむ返し
