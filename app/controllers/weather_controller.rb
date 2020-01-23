@@ -2,7 +2,6 @@ class WeatherController < ApplicationController
   require 'line/bot'  # gem 'line-bot-api'
   require "json"
   require 'uri'
-  require "wikipedia"
   require 'net/http'
   # callbackアクションのCSRFトークン認証を無効
   protect_from_forgery :except => [:callback]
@@ -61,7 +60,7 @@ class WeatherController < ApplicationController
         gkey = ENV["GURU_KEY"]
         eurl = URI.encode("https://api.gnavi.co.jp/RestSearchAPI/v3/?keyid=#{gkey}&address=#{area}")
         an = "#{eurl}"
-        last = Net::HTTP.get_print URI.parse("#{eurl}")
+        # last = Net::HTTP.get_print URI.parse("#{eurl}")
         response = "#{an}"
       else
         # おうむ返し
