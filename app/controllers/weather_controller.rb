@@ -68,8 +68,10 @@ class WeatherController < ApplicationController
         event.message['text'].include?("ぐるなび")
         area = event.message['text'].delete("ぐるなび")
         if 
-          event.message['text'].include?("micro")
+          event.message['text'].include?("携帯")
           microphone == 1
+        else 
+          microphone == 0
         end
         gkey = ENV["GURU_KEY"]
         eurl = URI.encode("https://api.gnavi.co.jp/RestSearchAPI/v3/?keyid=#{gkey}&address=#{area}&microphone=#{microphone}")
