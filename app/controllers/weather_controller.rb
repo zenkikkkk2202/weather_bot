@@ -73,7 +73,7 @@ class WeatherController < ApplicationController
         name = info.fetch("name")
         cate = info.fetch("category")
         url = info.fetch("url")
-        response = "店名 #{name} \nカテゴリー #{cate} \nURL #{url}\n'https://api.gnavi.co.jp/api/img/credit/api_265_65.gif'"
+        response = "店名 #{name} \nカテゴリー #{cate} \nURL #{url}"
         
       else
         # おうむ返し
