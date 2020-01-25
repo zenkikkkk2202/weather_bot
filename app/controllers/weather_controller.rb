@@ -55,11 +55,14 @@ class WeatherController < ApplicationController
         nresult = JSON.parse result
         info = nresult.fetch("articles")[0]
         info2 = nresult.fetch("articles")[1]
+        info3 = nresult.fetch("articles")[2]
         title = info.fetch("title")
         url = info.fetch("url")
         title2 = info2.fetch("title")
         url2 = info2.fetch("url")
-        response = "タイトル #{title} \nURL #{url}\n---------------------------\nタイトル #{title2} \nURL #{url2}"
+        title3 = info3.fetch("title")
+        url3 = info3.fetch("url")
+        response = "タイトル #{title} \nURL #{url}\n---------------------------\nタイトル #{title2} \nURL #{url2}\n---------------------------\nタイトル #{title3} \nURL #{url3}"
       elsif
         # ぐるなびAPIを呼び出す
         event.message['text'].include?("ぐるなび")
