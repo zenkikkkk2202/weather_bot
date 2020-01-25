@@ -59,7 +59,7 @@ class WeatherController < ApplicationController
         url = info.fetch("url")
         title2 = info2.fetch("title")
         url2 = info2.fetch("url")
-        response = "タイトル #{title} \nURL #{url}\nタイトル #{title2} \nURL #{url2}"
+        response = "タイトル #{title} \nURL #{url}\n--------------------\nタイトル #{title2} \nURL #{url2}"
       elsif
         # ぐるなびAPIを呼び出す
         event.message['text'].include?("ぐるなび")
