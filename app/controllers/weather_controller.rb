@@ -69,7 +69,7 @@ class WeatherController < ApplicationController
         eurl = URI.encode("https://api.gnavi.co.jp/RestSearchAPI/v3/?keyid=#{gkey}&address=#{area}")
         result = `curl -s -X GET "#{eurl}"`
         eresult = JSON.parse result
-        infos = eresult.fetch("rest").sample 
+        info = eresult.fetch("rest").sample 
         name = info.fetch("name")
         cate = info.fetch("category")
         url = info.fetch("url")
