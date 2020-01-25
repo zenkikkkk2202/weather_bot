@@ -63,7 +63,7 @@ class WeatherController < ApplicationController
         response = "タイトル #{title} \nURL #{url}\n---------------------------\nタイトル #{title2} \nURL #{url2}\n---------------------------\nタイトル #{title3} \nURL #{url3}"
       elsif
         # ぐるなびAPIを呼び出す
-        event.message['text'].include?("ぐるなび","wifi")
+        event.message['text'].include?("ぐるなび")
         area = event.message['text'].delete("ぐるなび")
         gkey = ENV["GURU_KEY"]
         eurl = URI.encode("https://api.gnavi.co.jp/RestSearchAPI/v3/?keyid=#{gkey}&address=#{area}")
@@ -77,7 +77,8 @@ class WeatherController < ApplicationController
         name2 = info2.fetch("name")
         cate2 = info2.fetch("category")
         url2 = info2.fetch("url")
-        response = "店名 #{name} \nカテゴリー #{cate} \nURL #{url}\n店名 #{name2} \nカテゴリー #{cate2} \nURL #{url2}"
+        # response = "店名 #{name} \nカテゴリー #{cate} \nURL #{url}\n店名 #{name2} \nカテゴリー #{cate2} \nURL #{url2}"
+        
       else
         # おうむ返し
         event.message['text']
