@@ -72,10 +72,14 @@ class WeatherController < ApplicationController
         infos = eresult.fetch("rest").sample(3)
         # info2 = eresult.fetch("rest")[1]
           infos.each do |info|
-            name = info.fetch("name")
-            cate = info.fetch("category")
-            url = info.fetch("url")
+            name = info.fetch("name")[0]
+            cate = info.fetch("category")[0]
+            url = info.fetch("url")[0]
             response = "店名 #{name} \nカテゴリー #{cate} \nURL #{url}"
+            name2 = info.fetch("name")[1]
+            cate2 = info.fetch("category")[1]
+            url2 = info.fetch("url")[1]
+            response = "店名 #{name2} \nカテゴリー #{cate2} \nURL #{url2}"
           end
         # name2 = info2.fetch("name")
         # cate2 = info2.fetch("category")
