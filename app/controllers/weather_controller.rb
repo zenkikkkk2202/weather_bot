@@ -1,13 +1,11 @@
 class WeatherController < ApplicationController
-  require 'line/bot'  # gem 'line-bot-api'
+  require 'line/bot'  
   require "json"
   require 'uri'
   require 'net/http'
   require "open-uri"
-  # callbackアクションのCSRFトークン認証を無効
-  protect_from_forgery :except => [:callback]
-
   
+  protect_from_forgery :except => [:callback]
 
   def client
     @client ||= Line::Bot::Client.new { |config|
@@ -65,14 +63,9 @@ class WeatherController < ApplicationController
         response = "タイトル #{title} \nURL #{url}\n---------------------------\nタイトル #{title2} \nURL #{url2}\n---------------------------\nタイトル #{title3} \nURL #{url3}"
       elsif
         # ぐるなびAPIを呼び出す
-        event.message['text'].include?("ぐるなび")
-        area = event.message['text'].delete("ぐるなび")
-        if 
-          event.message['text'].include?("携帯")
-          microphone == 1
-        else 
-          microphone == 0
-        end
+        event.message['text'].include?("ぐるなび","wifi")
+        area = event.message['text'].delete("ぐるなび","wifi")
+        microphone = 1
         gkey = ENV["GURU_KEY"]
         eurl = URI.encode("https://api.gnavi.co.jp/RestSearchAPI/v3/?keyid=#{gkey}&address=#{area}&microphone=#{microphone}")
         result = `curl -s -X GET "#{eurl}"`
