@@ -47,15 +47,19 @@ class WeatherController < ApplicationController
         end
 
       elsif
+        #newsapiを呼び出す
         event.message['text'] == ("ニュース")
         nkey = ENV["NEWS_KEY"]
         news = "http://newsapi.org/v2/top-headlines?country=jp&apiKey=#{nkey}"
         result = `curl -s -X GET "#{news}"`
         nresult = JSON.parse result
         info = nresult.fetch("articles")[0]
+        info2 = nresult.fetch("articles")[1]
         title = info.fetch("title")
         url = info.fetch("url")
-        response = "タイトル #{title} \nURL #{url}"
+        title2 = info2.fetch("title")
+        url2 = info2.fetch("url")
+        response = "タイトル #{title} \nURL #{url}\nタイトル #{title2} \nURL #{url2}"
       elsif
         # ぐるなびAPIを呼び出す
         event.message['text'].include?("ぐるなび")
