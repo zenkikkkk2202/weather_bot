@@ -41,7 +41,8 @@ class WeatherController < ApplicationController
         if cod == 200
           tenki = hash_result.fetch("weather")[0]
           main = hash_result.fetch("main")
-          response = " 天気 #{tenki.fetch("main")} \n 詳細 #{tenki.fetch("description")} \n 平均気温 #{main.fetch("temp")} \n 最高気温 #{main.fetch("temp_max")} \n 最低気温 #{main.fetch("temp_min")}" 
+          # response = " 天気 #{tenki.fetch("main")} \n 詳細 #{tenki.fetch("description")} \n 平均気温 #{main.fetch("temp")} \n 最高気温 #{main.fetch("temp_max")} \n 最低気温 #{main.fetch("temp_min")}" 
+          response = "#{hash_result}"
         else
           response = "検索結果がありません"
         end
