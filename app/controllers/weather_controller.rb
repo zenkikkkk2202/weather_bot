@@ -71,12 +71,11 @@ class WeatherController < ApplicationController
         eresult = JSON.parse result
         infos = eresult.fetch("rest").sample(3)
         # info2 = eresult.fetch("rest")[1]
-          infos.each do |info|
+          infos[0].each do |info|
             name = info.fetch("name")
             cate = info.fetch("category")
             url = info.fetch("url")
             response = "店名 #{name} \nカテゴリー #{cate} \nURL #{url}"
-            puts "#{response}"
           end
         # name2 = info2.fetch("name")
         # cate2 = info2.fetch("category")
