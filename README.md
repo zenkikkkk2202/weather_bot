@@ -20,6 +20,8 @@
  
 使い方
 　lineをインストールした後、このアプリケーションにメッセージを送信する。
+  line ID = @870usumq
+  QRアドレス = https://qr-official.line.me/sid/L/870usumq.png
  
 デプロイ
 　Herokuにてデプロイ
@@ -52,6 +54,8 @@ Function
   
  How to use
   After Line installed, send message to this bot.
+  line ID = @870usumq
+  QRadress = https://qr-official.line.me/sid/L/870usumq.png
   
  Deploy
   Deployed by Heroku.
