@@ -16,7 +16,7 @@ class WeatherController < ApplicationController
 
   def callback
     body = request.body.read
-
+    
     signature = request.env['HTTP_X_LINE_SIGNATURE']
     unless client.validate_signature(body, signature)
       head :bad_request
@@ -27,7 +27,7 @@ class WeatherController < ApplicationController
       # open_weatherのAPIを呼び出す
       if 
         event.message['text'] == "チュートリアル"
-        tutorial = "地名の後ろにスペースを開けずに天気と入力すると、天気予報が返ってきます \nニュースと入力すると３つのトップニュースが返ります \n地名の後ろにスペースを開けずにぐるなびと入力すると、お店の情報が返ります \nそれ以外はおうむ返しです" 
+        tutorial = "地名の後ろにスペースを開けずに天気と入力すると、天気予報が返ってきます \nニュースと入力すると３つのトップニュースが返ります \nそれ以外はおうむ返しです" 
         response = "#{tutorial}"  
       elsif 
         event.message['text'].include?("天気")
